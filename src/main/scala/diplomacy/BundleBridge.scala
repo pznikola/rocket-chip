@@ -71,7 +71,7 @@ case class BundleBridgeSource[T <: Data](genOpt: Option[() => T] = None)(implici
   }
 
   def makeIO()(implicit valName: ValName): T = {
-    val io: T = IO(if (inferInput) Input(chiselTypeOf(bundle)) else Flipped(chiselTypeClone(bundle)))
+    val io: T = IO(if (inferInput) Input(chiselTypeOf[T](bundle)) else Flipped(chiselTypeClone[T](bundle)))
     io.suggestName(valName.name)
     bundle <> io
     io
